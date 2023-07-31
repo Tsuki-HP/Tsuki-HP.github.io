@@ -1,9 +1,4 @@
-// Sample CSV data (replace this with your actual CSV data)
-// csvData = d3.csv("/Users/yulinzhou/Desktop/416/NV/Tsuki-HP.github.io/us-states_covid.csv", function(data) {
- //   for (var i = 0; i < data.length; i++) {
- //       console.log(data[i].state);
- //   }
-//});
+
 const csvEarly = `state,deaths
 AL,28
 AK,2
@@ -161,34 +156,28 @@ WV,7795
 WI,15860
 WY,1959`;
 
-// Function to handle date change and show the appropriate screen
+
 function handleDateChange(selectedDate) {
-  // Convert the selected date to JavaScript Date object
-  //const selectedDateObject = new Date(selectedDate);
 
   // Parse the CSV data
   const data1 = d3.csvParse(csvEarly);
   const data2 = d3.csvParse(csvMiddle);
   const data3 = d3.csvParse(csvLate);
 
-  // Filter the data based on the selected date
-  //const filteredData = data.filter(d => new Date(d.date) <= selectedDateObject);
-
-  // Determine the appropriate screen based on the selected date
+ 
   const startDate = "2020-04-01"; // First month of COVID data
   const middleDate = "2022-04-01"; // Middle of COVID data
   const endDate = "2023-01-01"; // Last month of COVID data
 
   if (selectedDate == startDate) {
-    showScreen(1, data1); // Show Screen 1: Introduction
+    showScreen(1, data1); /
   } else if (selectedDate == middleDate) {
-    showScreen(2, data2); // Show Screen 2: In-depth Analysis
+    showScreen(2, data2); 
   } else {
-    showScreen(3, data3); // Show Screen 3: Conclusion
+    showScreen(3, data3);
   }
 }
 
-// Function to show/hide screens and create bar chart
 function showScreen(screenNumber, data) {
   const screens = document.getElementsByClassName("screen");
   for (let i = 0; i < screens.length; i++) {
@@ -196,28 +185,22 @@ function showScreen(screenNumber, data) {
   }
 
   document.getElementById(`screen${screenNumber}`).style.display = "block";
-
-  // Create or update the bar chart
   createBarChart(data, `chartContainer${screenNumber}`);
 }
 
 // Function to create a bar chart
 function createBarChart(data, containerId) {
-  // Clear the previous chart, if any
   d3.select(`#${containerId}`).selectAll("*").remove();
 
-  // Define the dimensions of the chart
   const width = 1200;
   const height = 450;
   const margin = { top: 30, right: 20, bottom: 50, left: 60 };
 
-  // Create an SVG element within the specified container
   const svg = d3.select(`#${containerId}`)
     .append("svg")
     .attr("width", width)
     .attr("height", height);
 
-  // Extract unique states from the data
   const states = [...new Set(data.map(d => d.state))];
   const stateWithMaxDeaths = data.reduce((acc, cur) => {
     if (+cur.deaths > acc.deaths) {
@@ -225,7 +208,7 @@ function createBarChart(data, containerId) {
     }
     return acc;
   }, data[0]);
-  // Create scales for x and y axes
+
   const xScale = d3.scaleBand()
     .domain(states)
     .range([margin.left, width - margin.right])
@@ -235,17 +218,14 @@ function createBarChart(data, containerId) {
     .domain([0, d3.max(data, d => +d.deaths)])
     .range([height - margin.bottom, margin.top]);
 
-  // Create and append x-axis to the SVG
   svg.append("g")
     .attr("transform", `translate(0, ${height - margin.bottom})`)
     .call(d3.axisBottom(xScale));
 
-  // Create and append y-axis to the SVG
   svg.append("g")
     .attr("transform", `translate(${margin.left}, 0)`)
     .call(d3.axisLeft(yScale));
 
-  // Create and append bars to the SVG
   svg.selectAll(".bar")
     .data(data)
     .enter()
@@ -263,7 +243,7 @@ function createBarChart(data, containerId) {
     x: xScale(stateWithMaxDeaths.state) + xScale.bandwidth() / 2,
     y: yScale(stateWithMaxDeaths.deaths),
     dx: 20,
-    dy: 0, // Adjust the vertical position based on text length
+    dy: 0, 
     color: "red",
     type: d3.annotationCalloutCircle,
     subject: { radius: 10 },
@@ -280,7 +260,7 @@ svg.append("g")
   .call(makeAnnotations);
 }
 
-// Set the default date for the buttons
+
 document.addEventListener("DOMContentLoaded", function() {
-  handleDateChange('2020-04-01'); // Set the default date to April 2, 2020
+  handleDateChange('2020-04-01'); 
 });
