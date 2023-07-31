@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+
+<style> .chart rect {fill: steelblue } </style>
+
+<html>
+<head>
+  <title>Narrative Visualization Project --- Death Number of Covid</title>
+</head>
+<body>
+
+  <div>
+    <button onclick="handleDateChange('2020-04-01')">Early stage of Covid</button>
+    <button onclick="handleDateChange('2022-04-01')">Middle stage of Covid</button>
+    <button onclick="handleDateChange('2023-01-01')">Late stage of Covid</button>
+  </div>
+
+<div id="screen1" class="screen">
+    <h1>Early State</h1>
+    <div id="chartContainer1">
+      <!-- Bar chart for screen 2 goes here -->
+    </div>
+  </div>
+
+  <!-- Screen 2: In-depth Analysis -->
+  <div id="screen2" class="screen">
+    <h1>Middle State</h1>
+    <div id="chartContainer2">
+      <!-- Bar chart for screen 2 goes here -->
+    </div>
+  </div>
+
+  <!-- Screen 3: Conclusion -->
+  <div id="screen3" class="screen">
+    <h1>Late State</h1>
+    <div id="chartContainer3">
+      <!-- Bar chart for screen 2 goes here -->
+    </div>
+  </div>
+
+<script src="http://d3js.org/d3.v7.min.js"></script>
+<script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
+<script src="test.js"></script>
+</body>
+</html>
