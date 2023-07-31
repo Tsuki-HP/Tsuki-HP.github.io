@@ -159,24 +159,24 @@ WY,1959`;
 
 function handleDateChange(selectedDate) {
 
-  // Parse the CSV data
+
   const data1 = d3.csvParse(csvEarly);
   const data2 = d3.csvParse(csvMiddle);
   const data3 = d3.csvParse(csvLate);
 
- 
   const startDate = "2020-04-01"; // First month of COVID data
   const middleDate = "2022-04-01"; // Middle of COVID data
   const endDate = "2023-01-01"; // Last month of COVID data
 
   if (selectedDate == startDate) {
-    showScreen(1, data1); /
+    showScreen(1, data1); 
   } else if (selectedDate == middleDate) {
     showScreen(2, data2); 
   } else {
-    showScreen(3, data3);
+    showScreen(3, data3); 
   }
 }
+
 
 function showScreen(screenNumber, data) {
   const screens = document.getElementsByClassName("screen");
@@ -185,11 +185,14 @@ function showScreen(screenNumber, data) {
   }
 
   document.getElementById(`screen${screenNumber}`).style.display = "block";
+
+ 
   createBarChart(data, `chartContainer${screenNumber}`);
 }
 
-// Function to create a bar chart
+
 function createBarChart(data, containerId) {
+
   d3.select(`#${containerId}`).selectAll("*").remove();
 
   const width = 1200;
@@ -200,6 +203,7 @@ function createBarChart(data, containerId) {
     .append("svg")
     .attr("width", width)
     .attr("height", height);
+
 
   const states = [...new Set(data.map(d => d.state))];
   const stateWithMaxDeaths = data.reduce((acc, cur) => {
@@ -218,6 +222,7 @@ function createBarChart(data, containerId) {
     .domain([0, d3.max(data, d => +d.deaths)])
     .range([height - margin.bottom, margin.top]);
 
+ 
   svg.append("g")
     .attr("transform", `translate(0, ${height - margin.bottom})`)
     .call(d3.axisBottom(xScale));
@@ -259,7 +264,6 @@ svg.append("g")
   .attr("class", "annotation-group")
   .call(makeAnnotations);
 }
-
 
 document.addEventListener("DOMContentLoaded", function() {
   handleDateChange('2020-04-01'); 
